@@ -19,8 +19,10 @@ public class CreateRecruiterController {
     }
 
     @RequestMapping(method=POST)
-    public String create(@RequestParam("email") String email) {
-        recruiterRepository.save(new Recruiter(email));
+    public String create(@RequestParam("name") String name,
+                         @RequestParam("email") String email,
+                         @RequestParam("message") String message) {
+        recruiterRepository.save(new Recruiter(name, email, message));
         return "recruiterCreated";
     }
 }

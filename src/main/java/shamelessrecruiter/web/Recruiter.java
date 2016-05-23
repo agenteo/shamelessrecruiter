@@ -1,18 +1,15 @@
 package shamelessrecruiter.web;
 
-import org.springframework.data.annotation.Id;
-
 public class Recruiter {
 
-    @Id
-    private String id;
-    private String email;
+    public final String name;
+    public final String email;
+    public final String message;
 
-
-    public Recruiter() {}
-
-    public Recruiter(String email) {
+    public Recruiter(String name, String email, String message) {
+        this.name = name;
         this.email = email;
+        this.message = message;
     }
 
     @Override

@@ -18,7 +18,9 @@ public class CreateRecruiterControllerTest {
         RecruiterRepository mockRepository = mock(RecruiterRepository.class);
         CreateRecruiterController controller= new CreateRecruiterController(mockRepository);
         MockMvc mockMvc = standaloneSetup(controller).build();
-        mockMvc.perform(post("/create").param("email", "enrico@example.com")).
+        mockMvc.perform(post("/create").param("name", "Ajeje Brazu")
+                .param("email", "ajeje@bra.zu")
+                .param("message", "Dear candidate...")).
                 andExpect(view().name("recruiterCreated"));
     }
 }

@@ -6,13 +6,34 @@
 </head>
 <body>
     <h1>Welcome to ShamelessRecruiter</h1>
-    <h2>Share meaningless recruiters emails</h2>
+    <h2>Have you received meaningless recruiter emails?</h2>
+    <h2>Share them and contribute the creation of a worldwide blacklist.</h2>
 
     <form action="subscribe.html" th:attr="action=@{/create}" method="post">
+        <h3>I got shameless recruiting from:</h3>
         <fieldset>
-            <input type="text" name="email" />
-            <input type="submit" value="Subscribe me!"/>
+            <label for="name">name:</label>
+            <input type="text" id="name" name="name" />
+
+            <hr/>
+
+            <label for="email">email:</label>
+            <input type="text" id="email" name="email" />
+
+            <hr/>
+
+            <label for="message">message:</label>
+            <textarea id="message" name="message">
+            </textarea>
+
+            <hr/>
+
+            <input id="submitReport" type="submit" value="Report it now"/>
         </fieldset>
     </form>
+
+    <ul th:each="recruiter: ${recruiterList}">
+        <li th:text="${recruiter.email}">Oranges</li>
+    </ul>
 </body>
 </html>
