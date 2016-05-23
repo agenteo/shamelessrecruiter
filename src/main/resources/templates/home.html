@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>recruiter created!</title>
+</head>
+<body>
+    <h1>Welcome to ShamelessRecruiter</h1>
+    <h2>Share meaningless recruiters emails</h2>
+
+    <form action="subscribe.html" th:attr="action=@{/create}" method="post">
+        <fieldset>
+            <input type="text" name="email" />
+            <input type="submit" value="Subscribe me!"/>
+        </fieldset>
+    </form>
+</body>
+</html>
