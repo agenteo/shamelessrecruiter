@@ -9,22 +9,25 @@
     <h2>Have you received meaningless recruiter emails?</h2>
     <h2>Share them and contribute the creation of a worldwide blacklist.</h2>
 
-    <form action="subscribe.html" th:attr="action=@{/create}" method="post">
+    <form action="subscribe.html" th:attr="action=@{/create}" th:object="${reportRecruiterForm}" method="post">
         <h3>I got shameless recruiting from:</h3>
         <fieldset>
             <label for="name">name:</label>
-            <input type="text" id="name" name="name" />
+            <input th:field="*{name}" type="text" id="name" name="name" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name invalid</span>
 
             <hr/>
 
             <label for="email">email:</label>
-            <input type="text" id="email" name="email" />
+            <input th:field="*{email}" type="text" id="email" name="email" />
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email invalid</span>
 
             <hr/>
 
             <label for="message">message:</label>
-            <textarea id="message" name="message">
-            </textarea>
+            <textarea th:field="*{message}" id="message" name="message"></textarea>
+            <small>(copy paste the recruiter message)</small>
+            <span th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Message invalid</span>
 
             <hr/>
 

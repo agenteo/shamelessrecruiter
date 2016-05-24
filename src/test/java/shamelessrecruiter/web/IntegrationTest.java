@@ -2,6 +2,7 @@ package shamelessrecruiter.web;
 
 import net.codestory.simplelenium.DomElement;
 import net.codestory.simplelenium.PageObject;
+import org.junit.Before;
 import org.junit.Test;
 
 import net.codestory.simplelenium.SeleniumTest;
@@ -22,6 +23,12 @@ public class IntegrationTest extends SeleniumTest {
         return "http://localhost:9000";
     }
 
+// Working option to change browser.
+//    @Before
+//    public void executedBeforeEach() {
+//        System.setProperty("browser", "chrome");
+//    }
+
     @Test
     public void reportAnnoyingRecruiter() {
         goTo(reportRecruiterPage);
@@ -31,6 +38,14 @@ public class IntegrationTest extends SeleniumTest {
                                          "Dear candidate, I have the perfect opportunity for you...");
         reportRecruiterPage.submitReport();
         reportRecruiterPage.shouldDisplaySuccessMessage();
+
+        goTo(reportRecruiterPage);
+        reportRecruiterPage.fillInInvalidReport("Ajeje Brazu", "ajeje bra.zu",
+                "Dear candidate, I have the perfect opportunity for you...");
+        reportRecruiterPage.submitReport();
+        reportRecruiterPage.shouldDisplayValidationErrorMessage();
+        reportRecruiterPage.shouldFillFormWithRejectedReport("Ajeje Brazu", "ajeje bra.zu",
+                "Dear candidate, I have the perfect opportunity for you...");
     }
 
     static class ReportRecruiterPage implements PageObject {
@@ -61,12 +76,26 @@ public class IntegrationTest extends SeleniumTest {
             messageField.fill(message);
         }
 
+        void fillInInvalidReport(String name, String email, String message) {
+            fillInReport(name, email, message);
+        }
+
         void submitReport(){
             submitButton.submit();
         }
 
         void shouldDisplaySuccessMessage(){
             body.should().contain("Thanks for reporting a shameless recruiter");
+        }
+
+        void shouldDisplayValidationErrorMessage(){
+           body.should().contain("not a well-formed email address");
+        }
+
+        void shouldFillFormWithRejectedReport(String name, String email, String message){
+            nameField.with("value").equalTo(name);
+            emailField.with("value").equalTo(email);
+            messageField.with("value").equalTo(message);
         }
     }
 

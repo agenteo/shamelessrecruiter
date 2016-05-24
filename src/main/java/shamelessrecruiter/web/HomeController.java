@@ -16,8 +16,8 @@ public class HomeController {
 
     @RequestMapping(method=GET)
     public String home(Model model){
-        model.addAttribute("recruiterList",
-                recruiterRepository.findAll());
+        model.addAttribute("recruiterList", recruiterRepository.findAll());
+        model.addAttribute("reportRecruiterForm", new ReportRecruiterForm());
         return "home";
     }
 }
