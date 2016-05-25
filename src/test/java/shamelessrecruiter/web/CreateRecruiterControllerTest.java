@@ -1,11 +1,7 @@
 package shamelessrecruiter.web;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.BindingResult;
 
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
@@ -19,12 +15,12 @@ public class CreateRecruiterControllerTest {
     @Test
     public void testRecruiterCreation() throws Exception{
         RecruiterRepository mockRepository = mock(RecruiterRepository.class);
-        CreateRecruiterController controller= new CreateRecruiterController(mockRepository);
+        ReportRecruiterController controller= new ReportRecruiterController(mockRepository);
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(post("/create")
                 .param("name", "Ajeje Brazu")
                 .param("email", "ajeje@bra.zu")
                 .param("message", "Dear candidate...")).
-                andExpect(view().name("recruiterCreated"));
+                andExpect(view().name("recruiterReportCreated"));
     }
 }

@@ -15,11 +15,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
 @RequestMapping("/create")
-public class CreateRecruiterController {
+public class ReportRecruiterController {
     private RecruiterRepository recruiterRepository;
 
     @Autowired
-    public CreateRecruiterController(RecruiterRepository recruiterRepository) {
+    public ReportRecruiterController(RecruiterRepository recruiterRepository) {
         this.recruiterRepository = recruiterRepository;
     }
 
@@ -35,6 +35,6 @@ public class CreateRecruiterController {
         recruiterRepository.save(new Recruiter(reportRecruiterForm.getName(),
                 reportRecruiterForm.getEmail(),
                 reportRecruiterForm.getMessage()));
-        return "recruiterCreated";
+        return "recruiterReportCreated";
     }
 }
