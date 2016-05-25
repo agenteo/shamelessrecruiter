@@ -1,5 +1,6 @@
 package shamelessrecruiter.web;
 
+import com.mongodb.BasicDBObject;
 import net.codestory.simplelenium.DomElement;
 import net.codestory.simplelenium.PageObject;
 import org.junit.Before;
@@ -8,14 +9,17 @@ import org.junit.Test;
 import net.codestory.simplelenium.SeleniumTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ShamelessrecruiterApplication.class)
 @WebIntegrationTest("server.port:9000")
 
 public class IntegrationTest extends SeleniumTest {
+
     ReportRecruiterPage reportRecruiterPage;
 
     @Override
@@ -23,11 +27,16 @@ public class IntegrationTest extends SeleniumTest {
         return "http://localhost:9000";
     }
 
-// Working option to change browser.
-//    @Before
-//    public void executedBeforeEach() {
-//        System.setProperty("browser", "chrome");
-//    }
+    @Autowired
+    org.springframework.data.mongodb.core.MongoTemplate mongoTemplate;
+
+    @Before
+    public void executedBeforeEach() {
+        // Working option to change browser.
+        // System.setProperty("browser", "chrome");
+        // Ensure DB is clean
+        mongoTemplate.getDb().dropDatabase();
+    }
 
     @Test
     public void reportAnnoyingRecruiter() {
