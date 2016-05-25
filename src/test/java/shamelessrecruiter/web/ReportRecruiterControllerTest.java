@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CreateRecruiterControllerTest {
+public class ReportRecruiterControllerTest {
 
     // I couldn't find a way to mock the @Valid response used in the controller
     // to validate the ReportRecruiterForm
