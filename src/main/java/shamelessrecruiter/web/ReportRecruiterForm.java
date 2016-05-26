@@ -16,6 +16,8 @@ public class ReportRecruiterForm {
     @NotEmpty
     private String message;
 
+    public ReportRecruiterForm() {
+    }
 
     public String getName(){
         return this.name;

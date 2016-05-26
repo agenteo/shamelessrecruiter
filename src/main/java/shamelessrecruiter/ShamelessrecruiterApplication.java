@@ -1,4 +1,4 @@
-package shamelessrecruiter.web;
+package shamelessrecruiter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
