@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,16 +34,25 @@ public class IntegrationTest {
     }
 
     @Test
-    public void reportAnnoyingRecruiter(){
+    public void reportAndListAnnoyingRecruiter(){
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:9000/api/reportRecruiter")
                     .header("accept", "application/json")
                     .header("content-type", "application/json")
                     .body("{\"name\": \"Ajeje Brazu\", \"email\": \"ajeje@bra.zu\", \"message\": \"Dear candidate\"}")
                     .asJson();
-            System.out.println(jsonResponse.getBody());
             JSONObject myObj = jsonResponse.getBody().getObject();
-            assertEquals("good service", myObj.getString("response"));
+            assertEquals("successfully submitted recruiter",
+                         "good service", myObj.getString("response"));
+
+            jsonResponse = Unirest.get("http://localhost:9000/api/listRecruiters")
+                    .header("accept", "application/json")
+                    .header("content-type", "application/json")
+                    .asJson();
+            JSONArray parsedResponse = jsonResponse.getBody().getArray();
+            assertEquals("first element matches the reported recruiter",
+                         "{\"name\":\"Ajeje Brazu\",\"message\":\"Dear candidate\",\"email\":\"ajeje@bra.zu\"}",
+                         parsedResponse.get(0).toString());
         }
         catch(UnirestException e){
             e.printStackTrace();

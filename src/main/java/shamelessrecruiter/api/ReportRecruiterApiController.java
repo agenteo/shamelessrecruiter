@@ -43,7 +43,6 @@ public class ReportRecruiterApiController {
         if (bindingResult.hasErrors()) {
             // NOTE: in reality convert bindingResult.getAllErrros to JSON
             // response.put("response", bindingResult.getAllErrors());
-            System.out.println(bindingResult.toString());
             response.put("response", "bad service");
             return response;
         }
