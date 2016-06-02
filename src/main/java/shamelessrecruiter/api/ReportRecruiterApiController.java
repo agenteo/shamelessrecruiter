@@ -1,6 +1,8 @@
 package shamelessrecruiter.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,20 +38,20 @@ public class ReportRecruiterApiController {
 //        return response;
 //    }
     @RequestMapping(method = POST)
-    public Map<String, Object> create(@RequestBody @Valid ReportRecruiterForm reportRecruiterForm,
-                         BindingResult bindingResult){
+    public HttpEntity<Map<String, Object>> create(@RequestBody @Valid ReportRecruiterForm reportRecruiterForm,
+                                                 BindingResult bindingResult){
         Map<String, Object> response = new HashMap<>();
 
         if (bindingResult.hasErrors()) {
             // NOTE: in reality convert bindingResult.getAllErrros to JSON
             // response.put("response", bindingResult.getAllErrors());
             response.put("response", "bad service");
-            return response;
+            return ResponseEntity.unprocessableEntity().body(response);
         }
         recruiterRepository.save(new Recruiter(reportRecruiterForm.getName(),
                 reportRecruiterForm.getEmail(),
                 reportRecruiterForm.getMessage()));
         response.put("response", "good service");
-        return response;
+        return ResponseEntity.ok(response);
     }
 }
